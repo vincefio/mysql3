@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "mysql": "^2.15.0"
+  },
+  "name": "mysql",
+  "version": "1.0.0",
+  "main": "data.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
