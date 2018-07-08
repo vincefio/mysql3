@@ -16,6 +16,8 @@ connection.connect(function(err) {
   //afterConnection()
   //queryAllSongs()
   createTable()
+  updateTable1()
+  updateTable2()
 });
 
 function createTable(){
@@ -23,18 +25,30 @@ function createTable(){
     if (err) throw err;
     console.log('table created');
 
-    connection.destroy()
+    //connection.destroy()
   })
 }
 
-function updateTable(){
-  connection.query('SELECT * FROM ice_cream_crud WHERE size = ?',
-    values: [3]),
-  function(err, res){
+function updateTable1(){
+  connection.query({
+    sql: 'SELECT * FROM ice_cream_crud WHERE flavor = ?',
+    values: ['vanilla']
+  }, function(err, res){
     if (err) throw err;
     console.log('table updated')
     console.log(res)
-    connection.destroy()
+  //  connection.destroy()
+  })
+}
+function updateTable2(){
+  connection.query({
+    sql: 'DELETE FROM ice_cream_crud WHERE size = ? AND flavor = ?',
+    values: [3, 'vanilla']
+  }, function(err, res){
+    if (err) throw err;
+    console.log('table updated')
+    console.log(res)
+  //  connection.destroy()
   })
 }
 
