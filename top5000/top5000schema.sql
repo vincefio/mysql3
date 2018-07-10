@@ -17,3 +17,17 @@ CREATE TABLE top5000 (
 );
 
 SELECT * FROM top5000;
+
+SELECT * FROM top_songsdb.top5000;
+
+USE top_songsdb;
+
+SELECT *
+FROM top5000
+WHERE artist = 'pink floyd';
+
+SELECT artist,
+COUNT(*) c
+FROM top5000
+GROUP BY artist
+HAVING c > 1; 

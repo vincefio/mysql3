@@ -28,10 +28,10 @@ inquirer.prompt([
 
     switch(answer){
       case 'Songs by a specific artist':
-        console.log('Songs by a specific artist')
+        songsByArtist()
         break;
       case 'Artists who appear more than once':
-        console.log('Artists who appear more than once')
+        doubleArtist()
         break;
       case 'All data within a specific range':
         console.log('All data within a specific range')
@@ -42,9 +42,40 @@ inquirer.prompt([
     }
 });
 
-/*connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
+function doubleArtist(){
+  connection.query('SELECT artist, COUNT(*) c FROM top5000 GROUP BY artist HAVING c > 1', function(error, results, fields){
+    console.log(results[0])
+    for(let i = 0; i < results.length; i++){
+      console.log(results[i].artist + ' appears ' + results[i].c + ' time/s')
+    }
+
+  })
+}
+
+function songsByArtist(){
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'whichArtist',
+      message:'Which artist would you like to search for?'
+    }
+  ]).then(answers => {
+    //console.log(answers.whichArtist)
+
+    connection.query('SELECT * FROM top5000 WHERE artist = ?',
+    [
+      answers.whichArtist
+    ],
+     function(error, results, fields){
+       //console.log('results ' + JSON.stringify(results[0].song))
+
+       //loop through the results and print to console
+       for(let i = 0; i < results.length; i++){
+         console.log(results[i].song + '  ' + results[i].position)
+       }
+    })
 });
-*/
-connection.end();
+
+}
+
+//connection.end();
